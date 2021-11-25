@@ -1,0 +1,14 @@
+{
+  "name": "minimal-cold-start-case",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Barnaby Cotter <barnabycotter@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "serverless": "^2.66.2",
+    "serverless-localstack": "^0.4.35"
+  },
+  "scripts": {
+     "deploy": "serverless deploy --stage=local"
+  }
+}

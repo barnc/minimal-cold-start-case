@@ -1,0 +1,25 @@
+app: serverless
+service: serverless
+frameworkVersion: "2"
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: eu-west-1
+plugins:
+  - serverless-localstack
+custom:
+  localstack:
+    debug: true
+    stages:
+      - local
+    autostart: false
+    lambda:
+      mountCode: false
+    docker:
+      sudo: true
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http: GET hello

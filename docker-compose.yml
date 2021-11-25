@@ -1,0 +1,21 @@
+version: "3"
+services:
+  localstack:
+    container_name: "${LOCALSTACK_DOCKER_NAME-localstack_test}"
+    image: localstack/localstack:latest
+    ports:
+      - "127.0.0.1:53:53"
+      - "127.0.0.1:53:53/udp"
+      - "127.0.0.1:4510-4530:4510-4530"
+      - "127.0.0.1:4566-4620:4566-4620"
+    environment:
+      - DISABLE_CORS_CHECKS=1
+      - SERVICES=secretsmanager,serverless,ec2,cloudformation
+      - LAMBDA_CONTAINER_REGISTRY=lambci/lambda
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - LAMBDA_DOCKER_NETWORK=minimal-cold-start-case_default
+      - LAMBDA_EXECUTOR=docker-reuse
+      - HOST_TMP_FOLDER=${TMPDIR:-/tmp/}localstack
+    volumes:
+      - "${TMPDIR:-/tmp}/localstack:/tmp/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
